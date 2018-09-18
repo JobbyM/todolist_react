@@ -39,3 +39,34 @@
 ['div', {id: 'abc'}, ['span', {}, 'bye bye']]
 7. 比较原始虚拟DOM 与新的虚拟DOM 的区别，找到区别是span 中的内容（极大的提升了性能）
 8. 直接操作DOM，改变span 中的内容
+
+## 深入了解虚拟DOM
+
+1. state 数据
+2. JSX 模版
+
+3. 数据 + 模版 生成虚拟DOM（虚拟DOM 就是一个JS 对象，用它来描述真实DOM）（损耗了性能）
+['div', {id: 'abc'}, ['span', {}, 'hello world']]
+
+4. 用虚拟DOM 结构，生成真实DOM，来显示
+<div id="abc"><span>hello world</span></div>
+
+5. state 反生改变
+
+6. 数据 + 模版 生成新虚拟DOM（极大的提升了性能）
+['div', {id: 'abc'}, ['span', {}, 'bye bye']]
+
+7. 比较原始虚拟DOM 与新的虚拟DOM 的区别，找到区别是span 中的内容（极大的提升了性能）
+
+8. 直接操作DOM，改变span 中的内容
+
+
+// JSX => createElement => 虚拟DOM（JS 对象） => 真实的DOM
+```Js
+React.createElement('div', {}, 'item')
+React.createElement('div', {}, React.createElement('span', {}, 'item'))
+```
+
+优点：
+1. 性能提升了
+2. 它使得跨端应用得以实现。React Native
