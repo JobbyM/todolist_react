@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import TodoItem from './TodoItem.jsx'
+import axios from 'axios'
 import './style.css'
 
 class TodoList extends Component {
@@ -14,37 +15,7 @@ class TodoList extends Component {
     this.handleItemDelete = this.handleItemDelete.bind(this)
   }
 
-  // 在组件即将被挂载到页面的时刻自动执行
-  componentWillMount() {
-    console.log('componentWillMount')
-  }
-
-  // 在组件被挂载到页面之后，自动执行
-  componentDidMount() {
-    console.log('componentDidMount')
-  }
-
-  // 组件被更新之前，他会自动执行
-  shouldComponentUpdate() {
-    console.log('shouldComponentUpdate')
-    return true
-  }
-
-  // 组件被更新之前，他会自动执行，但是他在shouldComponentUpdate 之后执行
-  // 如果shouldComponentUpdate 返回true 它才执行
-  // 如果返回false，这个函数就不会被执行了
-  componentWillUpdate() {
-    console.log('componentWillUpdate')
-  }
-
-  // 组件更新完成之后，他会被执行
-  componentDidUpdate() {
-    console.log('componentDidUpdate')
-  }
-
-
   render() {
-    console.log('parent render')
     return (
       <Fragment>
         <div>
@@ -54,7 +25,6 @@ class TodoList extends Component {
             className='input'
             value={this.state.inputValue}
             onChange={this.handleInputChange}
-            ref={(input) => {this.input = input}}
           />
           <button
             onClick={this.handleBtnClick}
@@ -62,11 +32,17 @@ class TodoList extends Component {
             提交
           </button>
         </div>
-        <ul ref={(ul) => {this.ul = ul}}>
+        <ul>
           {this.getTodoItem()}
         </ul>
       </Fragment>
     )
+  }
+
+  componentDidMount() {
+    axios.get('/api/todolist')
+      .then(() => {alert('succ')})
+      .catch(() => {alert('fail')})
   }
 
   getTodoItem() {
@@ -82,8 +58,8 @@ class TodoList extends Component {
     })
   }
 
-  handleInputChange() {
-    const value = this.input.value
+  handleInputChange(e) {
+    const value = e.target.value
     this.setState(() => ({
       inputValue: value
     }))
@@ -93,9 +69,7 @@ class TodoList extends Component {
     this.setState((prevState) => ({
       list: [...prevState.list, prevState.inputValue],
       inputValue: ''
-    }), () => {
-      console.log(this.ul.querySelectorAll('div').length)
-    })
+    }))
   }
 
   handleItemDelete(index) {
