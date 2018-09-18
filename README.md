@@ -91,3 +91,52 @@ React.createElement('div', {}, React.createElement('span', {}, 'item'))
 
 Diff 算法：
 1. 同层比较
+
+## React 中的生命周期函数
+生命周期函数指在某一个时期组件会自动调用执行的函数
+
+### 初始化
+设置state 和props
+
+### 加载
+1. componentWillMount
+在组件即将被挂载到页面的时刻自动执行
+
+2. render
+
+3. componentDidMount
+在组件被挂载到页面之后，自动执行
+
+### 更新
+对props
+1. componentWillReceiveProps
+ * 一个组件要从父组件接受参数
+ * 如果这个组件第一次存在与父组件中，不会执行
+ * 如果这个组件之前已经存在于父组件中，才会执行
+
+2. shouldComponentUpdate
+ 组件被更新之前，他会自动执行
+
+3. componentWillUpdate
+ * 组件被更新之前，他会自动执行，但是他在shouldComponentUpdate 之后执行
+ * 如果shouldComponentUpdate 返回true 它才执行
+ * 如果返回false，这个函数就不会被执行了
+
+4. render
+
+5. componentDidUpdate
+ 组件更新完成之后，他会被执行
+
+对state
+1. shouldComponentUpdate
+ 组件被更新之前，他会自动执行
+
+2. componentWillUpdate
+ * 组件被更新之前，他会自动执行，但是他在shouldComponentUpdate 之后执行
+ * 如果shouldComponentUpdate 返回true 它才执行
+ * 如果返回false，这个函数就不会被执行了
+
+3. render
+
+4. componentDidUpdate
+ 组件更新完成之后，他会被执行

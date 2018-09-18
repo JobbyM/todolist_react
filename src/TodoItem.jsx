@@ -7,6 +7,7 @@ class TodoItem extends Component {
     this.handleClick = this.handleClick.bind(this)
   }
   render() {
+    console.log('child render')
     const { content } = this.props
     return (
       <div
@@ -20,6 +21,18 @@ class TodoItem extends Component {
   handleClick() {
     const { deleteItem, index } = this.props
     deleteItem(index)
+  }
+
+  // 一个组件要从父组件接受参数
+  // 如果这个组件第一次存在与父组件中，不会执行
+  // 如果这个组件之前已经存在于父组件中，才会执行
+  componentWillReceiveProps() {
+    console.log('child componentWillReceiveProps')
+  }
+
+  // 当这个组件即将被从页面中剔除的时候，会被执行
+  componentWillUnmount() {
+    console.log('child componentWillUnmount')
   }
 }
 
