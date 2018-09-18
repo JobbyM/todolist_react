@@ -8,7 +8,7 @@
 1. state 数据
 2. JSX 模版
 3. 数据 + 模版 结合，生成真实DOM，来显示
-4. state 反生改变
+4. state 发生改变
 5. 数据 + 模版 结合，生成真实DOM，替换原始的DOM
 
 缺陷：
@@ -19,7 +19,7 @@
 1. state 数据
 2. JSX 模版
 3. 数据 + 模版 结合，生成真实DOM，来显示
-4. state 反生改变
+4. state 发生改变
 5. 数据 + 模版 结合，生成真实DOM，并不直接替换原始的DOM
 6. 新的DOM（DocumentFragment）和原始的DOM 做比对，找差异
 7. 找出input 框发生了变化
@@ -34,7 +34,7 @@
 <div id="abc"><span>hello world</span></div>
 4. 生成虚拟DOM（虚拟DOM 就是一个JS 对象，用它来描述真实DOM）（损耗了性能）
 ['div', {id: 'abc'}, ['span', {}, 'hello world']]
-5. state 反生改变
+5. state 发生改变
 6. 数据 + 模版 生成新虚拟DOM（极大的提升了性能）
 ['div', {id: 'abc'}, ['span', {}, 'bye bye']]
 7. 比较原始虚拟DOM 与新的虚拟DOM 的区别，找到区别是span 中的内容（极大的提升了性能）
@@ -51,7 +51,7 @@
 4. 用虚拟DOM 结构，生成真实DOM，来显示
 <div id="abc"><span>hello world</span></div>
 
-5. state 反生改变
+5. state 发生改变
 
 6. 数据 + 模版 生成新虚拟DOM（极大的提升了性能）
 ['div', {id: 'abc'}, ['span', {}, 'bye bye']]
@@ -70,3 +70,24 @@ React.createElement('div', {}, React.createElement('span', {}, 'item'))
 优点：
 1. 性能提升了
 2. 它使得跨端应用得以实现。React Native
+
+## 虚拟DOM 的diff 算法
+
+1. state 数据
+2. JSX 模版
+3. 数据 + 模版 生成虚拟DOM（虚拟DOM 就是一个JS 对象，用它来描述真实DOM）（损耗了性能）
+['div', {id: 'abc'}, ['span', {}, 'hello world']]
+4. 用虚拟DOM 结构，生成真实DOM，来显示
+<div id="abc"><span>hello world</span></div>
+5. state 发生改变
+6. 数据 + 模版 生成新虚拟DOM（极大的提升了性能）
+['div', {id: 'abc'}, ['span', {}, 'bye bye']]
+7. 比较原始虚拟DOM 与新的虚拟DOM 的区别，找到区别是span 中的内容（极大的提升了性能）
+8. 直接操作DOM，改变span 中的内容
+
+优点：
+1. 性能提升了
+2. 它使得跨端应用得以实现。React Native
+
+Diff 算法：
+1. 同层比较
