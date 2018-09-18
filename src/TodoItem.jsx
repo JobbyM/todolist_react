@@ -16,7 +16,6 @@ class TodoItem extends Component {
   }
 
   render() {
-    console.log('child render')
     const { content } = this.props
     return (
       <div
