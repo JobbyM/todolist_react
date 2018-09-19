@@ -140,3 +140,9 @@ Diff 算法：
 
 4. componentDidUpdate
  组件更新完成之后，他会被执行
+
+
+## Redux概念简述
+Redux = Reducer + Flux
+
+## Redux工作流程
