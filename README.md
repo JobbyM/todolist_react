@@ -165,3 +165,5 @@ reducer 可以接受state, 但是决不能修改state
 ## UI组件和容器组件
 
 ## 无状态组件
+
+## 使用Redux-thunk 中间件进行ajax 请求发送
