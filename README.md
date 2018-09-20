@@ -167,3 +167,8 @@ reducer 可以接受state, 但是决不能修改state
 ## 无状态组件
 
 ## 使用Redux-thunk 中间件进行ajax 请求发送
+
+## 什么是Redux的中间件
+到底什么是Redux 中间件
+1.是Action 和Store 之间的中间件
+2.对store.dispatch 方法的升级
