@@ -161,3 +161,5 @@ reducer 可以接受state, 但是决不能修改state
 2.store.dispatch
 3.store.getState
 4.store.subscribe
+
+## UI组件和容器组件
