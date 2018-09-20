@@ -146,3 +146,6 @@ Diff 算法：
 Redux = Reducer + Flux
 
 ## Redux工作流程
+
+## Action和Reducer的编写
+reducer 可以接受state, 但是决不能修改state
