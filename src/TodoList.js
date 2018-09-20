@@ -1,61 +1,63 @@
-import React, { Component} from 'react'
-import 'antd/dist/antd.css'
-import store from './store'
-import { getInitList, getInputChangeAction, getAddItemAction, getDeleteItemAction } from './store/actionCreators'
-import TodoListUI from './TodoListUI'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
-class TodoList extends Component {
+const TodoList = (props) => {
 
-  constructor(props) {
-    super(props)
-    this.state = store.getState()
-    this.handleInputChange = this.handleInputChange.bind(this)
-    this.handleStoreChange = this.handleStoreChange.bind(this)
-    this.handleBtnClick = this.handleBtnClick.bind(this)
-    this.handleItemDelete = this.handleItemDelete.bind(this)
-    store.subscribe(this.handleStoreChange)
+  const { inputValue, list } = props
+  const { changeInputValue, handleClick, handleDelete } = props
+
+  return (
+    <div>
+      <div>
+        <input
+          value={inputValue}
+          onChange={changeInputValue}
+        />
+      <button onClick={handleClick}>提交</button>
+      </div>
+      <ul>
+        {
+          list.map((item, index) => {
+            return <li key={index} onClick={()=>{handleDelete(index)}}>{item}</li>
+          })
+        }
+      </ul>
+    </div>
+  )
+}
+
+const mapStateToProps = (state) => {
+  return {
+    inputValue: state.inputValue,
+    list: state.list
   }
+}
+// store.dispatch, props
+const mapDispatchToProps = (dispatch) => {
+  return {
+    changeInputValue(e) {
+      const action = {
+        type: 'change_input_value',
+        value: e.target.value
+      }
+      dispatch(action)
+    },
 
-  render() {
-    return (
-      <TodoListUI
-        inputValue={this.state.inputValue}
-        list={this.state.list}
-        handleInputChange={this.handleInputChange}
-        handleBtnClick={this.handleBtnClick}
-        handleItemDelete={this.handleItemDelete}
-      />
-    )
-  }
+    handleClick() {
+      const action = {
+        type: 'add_item'
+      }
+      dispatch(action)
+    },
 
-  componentDidMount() {
-    const action = getInitList()
-    store.dispatch(action)
-    // axios.get('/list.json').then((res) => {
-    //   const data = res.data
-    //   const action = initListAction(data)
-    //   store.dispatch(action)
-    // })
-  }
-
-  handleInputChange(e) {
-    const action = getInputChangeAction(e.target.value)
-    store.dispatch(action)
-  }
-
-  handleStoreChange() {
-    this.setState(store.getState())
-  }
-
-  handleBtnClick() {
-    const action = getAddItemAction()
-    store.dispatch(action)
-  }
-
-  handleItemDelete(index) {
-    const action = getDeleteItemAction(index)
-    store.dispatch(action)
+    handleDelete(index) {
+      const action = {
+        type: 'delete_item',
+        index
+      }
+      dispatch(action)
+    }
   }
 }
 
-export default TodoList
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList)
