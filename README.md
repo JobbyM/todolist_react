@@ -149,3 +149,15 @@ Redux = Reducer + Flux
 
 ## Action和Reducer的编写
 reducer 可以接受state, 但是决不能修改state
+
+## Redux 设计和使用的三项原则
+1.store 是唯一的
+2.只有store 能改变自己的内容
+3.Reduce 必须是一个纯函数
+  纯函数指的是，给固定的输入，就一定会有固定的输出，而且不会有任何副作用
+
+## Redux 中核心API
+1.createStore
+2.store.dispatch
+3.store.getState
+4.store.subscribe
