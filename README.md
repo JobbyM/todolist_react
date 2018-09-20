@@ -163,3 +163,5 @@ reducer 可以接受state, 但是决不能修改state
 4.store.subscribe
 
 ## UI组件和容器组件
+
+## 无状态组件
